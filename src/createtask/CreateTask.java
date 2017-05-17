@@ -168,17 +168,26 @@ public class CreateTask implements ActionListener {
 		case "First Shift":
 			tickets = new String[] { "PRD Negative Rebalancing ( EMEA)", "EMEA Over Allocation and SO Rebalancing",
 					"PRD EMEA plant material rebalancing report", "PRD PO Rebalancing (US)",
+<<<<<<< HEAD
 					"PRD Negative Rebalancing (1080/90/99)", "PRD PO Rebalancing (Americas)" ,"EMEA Critical Jobs Monitoring" };
+=======
+					"PRD Negative Rebalancing (1080/90/99)", "PRD PO Rebalancing (Americas)" };
+>>>>>>> origin/master
 			break;
 		case "Second Shift":
 			tickets = new String[] { "PRD LA Plant material rebalancing",
 					"LA Region Over allocation and SO Rebalancing", "PRD US/Canada plant material rebalancing report",
+<<<<<<< HEAD
 					"PRD Negative Rebalancing (1004/14/51)", "NA Over allocation and SO rebalancing" ,"EMEA Critical Jobs Monitoring" };
+=======
+					"PRD Negative Rebalancing (1004/14/51)", "NA Over allocation and SO rebalancing" };
+>>>>>>> origin/master
 			break;
 		case "Third Shift":
 			tickets = new String[] { "PRA Negative Rebalancing (Others)",
 					"PRA  plant material rebalancing report (Oceania)", "Oceania over allocation and SO Rebalancing",
 					"PRA Negative Rebalancing (1083)", "PRA Negative Rebalancing (1025)", "PRD PO Rebalancing (EMEA)",
+<<<<<<< HEAD
 					"Asia Over allocation and SO Rebalancing", "PRA  plant material rebalancing report","EMEA Critical Jobs Monitoring" };
 
 			break;
@@ -214,12 +223,29 @@ public class CreateTask implements ActionListener {
 			}else{
 				ticketLog.append("Please select the shift to create tickets \n");
 			}
+=======
+					"Asia Over allocation and SO Rebalancing", "PRA  plant material rebalancing report" };
+
+			break;
+		case "Create Tickets":
+			// openUrl();
+			// authenticate();
+			for (int i = 0; i < tickets.length; i++) {
+				ticketLog.append("Creating ticket for " + tickets[i] + "...");
+				// createTickets(tickets[i]);
+				System.out.println(tickets[i]);
+				ticketLog.append("Done \n");
+			}
+			ticketLog.append(
+					"All tasks created successfully. Please assign them to respective team members. Thank you!");
+>>>>>>> origin/master
 			break;
 		default:
 			break;
 		}
 	}
 
+<<<<<<< HEAD
 	private void openUrl() {
 		// TODO Auto-generated method stub
 		System.setProperty("webdriver.chrome.driver", "D:\\jars\\chromedriver.exe");
@@ -231,6 +257,12 @@ public class CreateTask implements ActionListener {
 	@SuppressWarnings("deprecation")
 	private void authenticate() throws InterruptedException {
 		// TODO Auto-generated method stub
+=======
+	@SuppressWarnings("deprecation")
+	private void authenticate() throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+>>>>>>> origin/master
 		userid = userIdField.getText().toString();
 		password = passwordField.getText().toString();
 		System.out.println(userid + " " + password);
@@ -240,11 +272,26 @@ public class CreateTask implements ActionListener {
 		Thread.sleep(500);
 	}
 
+<<<<<<< HEAD
+=======
+	private void openUrl() {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\Selenium JARs\\chromedriver.exe");
+		driver = new ChromeDriver();
+		action = new Actions(driver);
+		baseUrl = "https://niketech.service-now.com/";
+		driver.get(baseUrl);
+	}
+
+>>>>>>> origin/master
 	protected void createTickets(String ticketName) throws InterruptedException {
 		// TODO Auto-generated method stub
 		baseUrl = "https://niketech.service-now.com/nav_to.do?uri=%2Fcom.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1%26sysparm_id%3Da9f4f4ce4f3912000b86ecee0210c7fe%26sysparm_link_parent%3Da21b4e604fd94a000b86ecee0210c79b%26sysparm_catalog%3De0d08b13c3330100c8b837659bba8fb4%26sysparm_catalog_view%3Dcatalog_default";
 		driver.get(baseUrl);
+<<<<<<< HEAD
 		Thread.sleep(500);
+=======
+>>>>>>> origin/master
 		shortDescription = ticketName;
 		detailDescription = ticketName;
 
