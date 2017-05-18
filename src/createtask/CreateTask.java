@@ -168,66 +168,78 @@ public class CreateTask implements ActionListener {
 		case "First Shift":
 			tickets = new String[] { "PRD Negative Rebalancing ( EMEA)", "EMEA Over Allocation and SO Rebalancing",
 					"PRD EMEA plant material rebalancing report", "PRD PO Rebalancing (US)",
-					"PRD Negative Rebalancing (1080/90/99)", "PRD PO Rebalancing (Americas)" ,"EMEA Critical Jobs Monitoring" };
+					"PRD Negative Rebalancing (1080/90/99)", "PRD PO Rebalancing (Americas)",
+					"EMEA Critical Jobs Monitoring" };
 			break;
 		case "Second Shift":
 			tickets = new String[] { "PRD LA Plant material rebalancing",
 					"LA Region Over allocation and SO Rebalancing", "PRD US/Canada plant material rebalancing report",
-					"PRD Negative Rebalancing (1004/14/51)", "NA Over allocation and SO rebalancing" ,"EMEA Critical Jobs Monitoring" };
+					"PRD Negative Rebalancing (1004/14/51)", "NA Over allocation and SO rebalancing",
+					"EMEA Critical Jobs Monitoring" };
 			break;
 		case "Third Shift":
 			tickets = new String[] { "PRA Negative Rebalancing (Others)",
 					"PRA  plant material rebalancing report (Oceania)", "Oceania over allocation and SO Rebalancing",
 					"PRA Negative Rebalancing (1083)", "PRA Negative Rebalancing (1025)", "PRD PO Rebalancing (EMEA)",
-					"Asia Over allocation and SO Rebalancing", "PRA  plant material rebalancing report","EMEA Critical Jobs Monitoring" };
+					"Asia Over allocation and SO Rebalancing", "PRA  plant material rebalancing report",
+					"EMEA Critical Jobs Monitoring" };
 
 			break;
 		case "Create Tickets":
-			 openUrl();
-			 try {
-				authenticate();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			if(tickets!= null){
-				for (int i = 0; i < tickets.length; i++) {
-					ticketLog.append("Creating ticket for " + tickets[i] + "...");
-					if(tickets[i]=="EMEA Critical Jobs Monitoring"){
-						requestType="Monitoring and Awareness";
-						serviceCategory = "Supply Chain";
-						serviceSubcategory = "Deliver";
-						service = "Deliver";
-						serviceArea = "Deliver Outbound";
-						assignmentGroup = "TAS-FL-DL-L1";
-					}
+			Thread thread = new Thread(){
+				public void run(){
+					openUrl();
 					try {
-						createTickets(tickets[i]);
+						authenticate();
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					System.out.println(tickets[i]);
-					ticketLog.append("Done \n");
-				}	
-				ticketLog.append("All tasks created successfully. Please assign them to respective team members. Thank you!");
-			}else{
-				ticketLog.append("Please select the shift to create tickets \n");
-			}
+					if (tickets != null) {
+						for (int i = 0; i < tickets.length; i++) {
+							if (tickets[i] == "EMEA Critical Jobs Monitoring") {
+								requestType = "Monitoring and Awareness";
+								serviceCategory = "Supply Chain";
+								serviceSubcategory = "Deliver";
+								service = "Deliver";
+								serviceArea = "Deliver Outbound";
+								assignmentGroup = "TAS-FL-DL-L1";
+							}
+							try {
+								ticketLog.append("Creating ticket for " + tickets[i] + "...");
+								createTickets(tickets[i]);
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							System.out.println(tickets[i]);
+							ticketLog.append("Done \n");
+						}
+						ticketLog.append(
+								"All tasks created successfully. Please assign them to respective team members. Thank you!");
+					} else {
+						ticketLog.append("Please select the shift to create tickets \n");
+					}
+				}
+			};
+			thread.start();
 			break;
 		default:
 			break;
 		}
+
 	}
 
 	private void openUrl() {
 		// TODO Auto-generated method stub
-		System.setProperty("webdriver.chrome.driver", "D:\\jars\\chromedriver.exe");
+		ticketLog.append("Opening Service Now \n");
+		System.setProperty("webdriver.chrome.driver", "D:\\Selenium JARs\\chromedriver.exe");
 		driver = new ChromeDriver();
 		action = new Actions(driver);
 		baseUrl = "https://niketech.service-now.com/";
 		driver.get(baseUrl);
 	}
+
 	@SuppressWarnings("deprecation")
 	private void authenticate() throws InterruptedException {
 		// TODO Auto-generated method stub
